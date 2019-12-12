@@ -8,8 +8,9 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "badger-cli",
-	Short: "Command line client for managing a badger database",
+	Version: "1.0.0",
+	Use:     "badger-cli",
+	Short:   "Command line client for managing a badger database",
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
