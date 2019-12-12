@@ -1,5 +1,8 @@
 # badger-cli
 
+`go get github.com/bah2830/badger-cli`
+
+
 ```
 Command line client for managing a badger database
 
