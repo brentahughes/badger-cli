@@ -33,18 +33,28 @@ func Open(dir string) (*DB, error) {
 	return &DB{DB: db}, err
 }
 
-func (db *DB) Get(key string) (string, error) {
-	var value []byte
+func (db *DB) Get(keys ...string) ([]string, error) {
+	var values []string
 	err := db.View(func(txn *badger.Txn) error {
-		item, err := txn.Get([]byte(key))
-		if err != nil {
-			return err
+		for _, k := range keys {
+			item, err := txn.Get([]byte(k))
+			if err != nil {
+				if err == badger.ErrKeyNotFound {
+					return fmt.Errorf("Key %s not found", k)
+				}
+				return err
+			}
+
+			value, err := item.ValueCopy(nil)
+			if err != nil {
+				return err
+			}
+			values = append(values, string(value))
 		}
 
-		value, err = item.ValueCopy(nil)
-		return err
+		return nil
 	})
-	return string(value), err
+	return values, err
 }
 
 func (db *DB) List(prefix string, limit, offset int) ([]ListResult, int, error) {

@@ -9,9 +9,9 @@ import (
 )
 
 var getCmd = &cobra.Command{
-	Use:   "get [key]",
+	Use:   "get [key]...",
 	Short: "Get content of a specific key",
-	Args:  cobra.ExactArgs(1),
+	Args:  cobra.MinimumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		db, err := badger.Open(cmd.Flag("dir").Value.String())
 		if err != nil {
@@ -19,12 +19,14 @@ var getCmd = &cobra.Command{
 		}
 		defer db.Close()
 
-		value, err := db.Get(args[0])
+		values, err := db.Get(args...)
 		if err != nil {
 			log.Fatalln(err)
 		}
 
-		fmt.Println(value)
+		for _, v := range values {
+			fmt.Println(v)
+		}
 	},
 }
 
