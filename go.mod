@@ -3,7 +3,7 @@ module github.com/bah2830/badger-cli
 go 1.13
 
 require (
-	github.com/dgraph-io/badger v1.6.0
+	github.com/dgraph-io/badger v1.6.2
 	github.com/pelletier/go-toml v1.6.0 // indirect
 	github.com/spf13/afero v1.2.2 // indirect
 	github.com/spf13/cobra v0.0.5
