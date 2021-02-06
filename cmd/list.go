@@ -25,14 +25,21 @@ var listCmd = &cobra.Command{
 			log.Fatalln(err)
 		}
 
+		var totValSize int64 = 0
+		var totKeySize int = 0
 		fmt.Printf("% -30s % 10s % 10s % 5s\n", "KEY", "SIZE", "VERSION", "META")
 		fmt.Println(strings.Repeat("=", 60))
 		for _, k := range keys {
 			fmt.Println(k)
+			totValSize += k.Size
+			totKeySize += len(k.Key)
 		}
 
 		fmt.Printf("\n\nReturned keys:   %d\n", len(keys))
 		fmt.Printf("Matched keys:    %d\n", total)
+		fmt.Printf("Space needed for keys %d\n", totKeySize)
+		fmt.Printf("Space needed for values %d\n", totValSize)
+		fmt.Printf("Total space for keys and values %d\n", totValSize+int64(totKeySize))
 	},
 }
 
