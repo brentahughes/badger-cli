@@ -23,7 +23,7 @@ type ListResult struct {
 }
 
 func (l ListResult) String() string {
-	return fmt.Sprintf("% -30s % 10d % 10d % 5d", l.Key, l.Size, l.Version, l.Meta)
+	return fmt.Sprintf("% 10d % 10d % 5d % -30s ", l.Size, l.Version, l.Meta, l.Key)
 }
 
 func Open(dir string) (*DB, error) {

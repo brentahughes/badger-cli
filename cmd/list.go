@@ -27,7 +27,7 @@ var listCmd = &cobra.Command{
 
 		var totValSize int64 = 0
 		var totKeySize int = 0
-		fmt.Printf("% -30s % 10s % 10s % 5s\n", "KEY", "SIZE", "VERSION", "META")
+		fmt.Printf("% 10s % 10s % 5s % -30s \n", "SIZE", "VERSION", "META", "KEY")
 		fmt.Println(strings.Repeat("=", 60))
 		for _, k := range keys {
 			fmt.Println(k)
