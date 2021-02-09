@@ -40,6 +40,13 @@ var listCmd = &cobra.Command{
 		fmt.Printf("Space needed for keys %d\n", totKeySize)
 		fmt.Printf("Space needed for values %d\n", totValSize)
 		fmt.Printf("Total space for keys and values %d\n", totValSize+int64(totKeySize))
+
+		lsm, vlog := db.Size()
+		fmt.Printf("DB sizes before GC: lsm %d and vlog %d\n", lsm, vlog)
+		db.Flatten(1)
+		db.RunValueLogGC(.1)
+		lsm, vlog = db.Size()
+		fmt.Printf("DB sizes after GC: lsm %d and vlog %d\n", lsm, vlog)
 	},
 }
 
