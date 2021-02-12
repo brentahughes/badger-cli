@@ -37,16 +37,10 @@ var listCmd = &cobra.Command{
 
 		fmt.Printf("\n\nReturned keys:   %d\n", len(keys))
 		fmt.Printf("Matched keys:    %d\n", total)
-		fmt.Printf("Space needed for keys %d\n", totKeySize)
-		fmt.Printf("Space needed for values %d\n", totValSize)
-		fmt.Printf("Total space for keys and values %d\n", totValSize+int64(totKeySize))
+		fmt.Printf("Total space for shown keys %d and values %d, sum is %d\n", totKeySize, totValSize, totValSize+int64(totKeySize))
 
 		lsm, vlog := db.Size()
-		fmt.Printf("DB sizes before GC: lsm %d and vlog %d\n", lsm, vlog)
-		db.Flatten(1)
-		db.RunValueLogGC(.1)
-		lsm, vlog = db.Size()
-		fmt.Printf("DB sizes after GC: lsm %d and vlog %d\n", lsm, vlog)
+		fmt.Printf("DB sizes before GC: lsm %d and vlog %d, total %d\n", lsm, vlog, lsm+vlog)
 	},
 }
 
