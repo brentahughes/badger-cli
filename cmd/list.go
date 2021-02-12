@@ -40,7 +40,7 @@ var listCmd = &cobra.Command{
 		fmt.Printf("Total space for shown keys %d and values %d, sum is %d\n", totKeySize, totValSize, totValSize+int64(totKeySize))
 
 		lsm, vlog := db.Size()
-		fmt.Printf("DB sizes before GC: lsm %d and vlog %d, total %d\n", lsm, vlog, lsm+vlog)
+		fmt.Printf("DB sizes: lsm %d and vlog %d, total %d\n", lsm, vlog, lsm+vlog)
 	},
 }
 
