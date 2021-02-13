@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/dgraph-io/badger"
+	badger "github.com/dgraph-io/badger/v3"
 )
 
 type DB struct {
@@ -23,7 +23,7 @@ type ListResult struct {
 }
 
 func (l ListResult) String() string {
-	return fmt.Sprintf("% -30s % 10d % 10d % 5s", l.Key, l.Size, l.Version, string(l.Meta))
+	return fmt.Sprintf("% 10d % 10d % 5d % -30s ", l.Size, l.Version, l.Meta, l.Key)
 }
 
 func Open(dir string) (*DB, error) {
@@ -88,7 +88,8 @@ func (db *DB) List(prefix string, limit, offset int) ([]ListResult, int, error) 
 					keys,
 					ListResult{
 						Key:     string(item.KeyCopy(nil)),
-						Size:    item.EstimatedSize(),
+						// Size:    item.EstimatedSize(),
+						Size:    item.ValueSize(),
 						Version: item.Version(),
 						Meta:    item.UserMeta(),
 					},
