@@ -25,7 +25,7 @@ var listCmd = &cobra.Command{
 			log.Fatalln(err)
 		}
 
-		fmt.Printf("% -30s % 10s % 10s % 5s\n", "KEY", "VERSION", "SIZE", "META")
+		fmt.Printf("% -30s % 10s % 10s % 5s\n", "KEY", "SIZE", "VERSION", "META")
 		fmt.Println(strings.Repeat("=", 60))
 		for _, k := range keys {
 			fmt.Println(k)

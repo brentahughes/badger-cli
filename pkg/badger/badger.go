@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/dgraph-io/badger"
+	"github.com/dgraph-io/badger/v4"
 )
 
 type DB struct {
@@ -40,7 +40,7 @@ func (db *DB) Get(keys ...string) ([]string, error) {
 			item, err := txn.Get([]byte(k))
 			if err != nil {
 				if err == badger.ErrKeyNotFound {
-					return fmt.Errorf("Key %s not found", k)
+					return fmt.Errorf("key %v not found", k)
 				}
 				return err
 			}
@@ -88,7 +88,7 @@ func (db *DB) List(prefix string, limit, offset int) ([]ListResult, int, error) 
 					keys,
 					ListResult{
 						Key:     string(item.KeyCopy(nil)),
-						Size:    item.EstimatedSize(),
+						Size:    item.ValueSize(),
 						Version: item.Version(),
 						Meta:    item.UserMeta(),
 					},
