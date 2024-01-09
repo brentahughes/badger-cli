@@ -40,7 +40,7 @@ func (db *DB) Get(keys ...string) ([]string, error) {
 			item, err := txn.Get([]byte(k))
 			if err != nil {
 				if err == badger.ErrKeyNotFound {
-					return fmt.Errorf("Key %s not found", k)
+					return fmt.Errorf("key %v not found", k)
 				}
 				return err
 			}
