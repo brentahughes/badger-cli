@@ -88,7 +88,7 @@ func (db *DB) List(prefix string, limit, offset int) ([]ListResult, int, error) 
 					keys,
 					ListResult{
 						Key:     string(item.KeyCopy(nil)),
-						Size:    item.EstimatedSize(),
+						Size:    item.ValueSize(),
 						Version: item.Version(),
 						Meta:    item.UserMeta(),
 					},
